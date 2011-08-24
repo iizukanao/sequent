@@ -50,7 +50,7 @@ Exit waiting earlier than planned.
 
 ### Queue (execute in order) ###
 
-Execute functions in queued order when it available.
+Execute functions in queued order when it becomes available.
 
     var Sequent = require('sequent');
     var seq = new Sequent;
