@@ -1,0 +1,16 @@
+{
+    "name": "sequent"
+  , "description": "JavaScript async flow control"
+  , "version": "0.1.0"
+  , "keywords": ["sequent", "sequence", "flow", "control", "queue", "join", "wait"]
+  , "author": "Nao Iizuka <iizuka@kyu-mu.net>"
+  , "main":   "./lib/sequent"
+  , "homepage": "https://github.com/iizukanao/sequent"
+  , "repository": {
+      "type": "git",
+      "url": "git://github.com/iizukanao/sequent.git"
+  }
+  , "devDependencies": {
+      "vows": ">= 0.5.9"
+  }
+}
