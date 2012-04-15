@@ -1,8 +1,19 @@
 DEBUG = false
 
-module.exports = class Sequent
 doImmediately = process?.nextTick ? (callback) -> setTimeout callback, 0
+idCounter = 1
+
+class Sequent
+    toString: ->
+        str = "[seq:#{@id}]"
+        if @waits?
+            str += " #{@finished}/#{@waits}"
+        if @isCallbackExecuted
+            str += " (finished)"
+        str
+
     constructor: (params) ->
+        @id = idCounter++
         @waits = null
         @finished = 0
         @args = []
@@ -118,3 +129,11 @@ doImmediately = process?.nextTick ? (callback) -> setTimeout callback, 0
             callback?()
         else
             @flushCallback = callback
+
+if define?
+    define ->
+        return Sequent
+else if module?.exports
+    module.exports = Sequent
+else
+    @Sequent = Sequent
