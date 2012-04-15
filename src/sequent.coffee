@@ -1,6 +1,7 @@
 DEBUG = false
 
 module.exports = class Sequent
+doImmediately = process?.nextTick ? (callback) -> setTimeout callback, 0
     constructor: (params) ->
         @waits = null
         @finished = 0
@@ -100,7 +101,7 @@ module.exports = class Sequent
                 if @readyLoops[loops+1]
                     console.log "[#{loops}] executing chaining next callback" if DEBUG
                     args = [arguments...]
-                    process.nextTick =>
+                    doImmediately =>
                         @loopCallbacks[loops+1] args...
                 else
                     console.log "[#{loops}] waiting for next callback to be executed" if DEBUG
