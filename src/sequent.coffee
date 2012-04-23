@@ -130,9 +130,8 @@ class Sequent
         else
             @flushCallback = callback
 
-if define?
-    define ->
-        return Sequent
+if define? and define.amd
+    define -> Sequent
 else if module?.exports
     module.exports = Sequent
 else
