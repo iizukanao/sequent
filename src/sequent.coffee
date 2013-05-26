@@ -22,6 +22,7 @@ class Sequent
         @loopCallbacks = []
         @executedLoops = 0
         @readyLoops = []
+        @readyLoopArgs = []
         @isCallbackExecuted = false
 
     rewind: ->
@@ -38,6 +39,7 @@ class Sequent
         @loopCallbacks = []
         @executedLoops = 0
         @readyLoops = []
+        @readyLoopArgs = []
         @isCallbackExecuted = false
 
     wait: (waits, callback) ->
@@ -111,9 +113,8 @@ class Sequent
                 callback arguments...
                 if @readyLoops[loops+1]
                     console.log "[#{loops}] executing chaining next callback" if DEBUG
-                    args = [arguments...]
                     doImmediately =>
-                        @loopCallbacks[loops+1] args...
+                        @loopCallbacks[loops+1] @readyLoopArgs[loops+1]...
                 else
                     console.log "[#{loops}] waiting for next callback to be executed" if DEBUG
                     if @executedLoops is @loops
@@ -122,6 +123,7 @@ class Sequent
             else
                 console.log "[#{loops}] waiting for previous callback to be executed" if DEBUG
                 @readyLoops[loops] = true
+                @readyLoopArgs[loops] = [arguments...]
 
     flush: (callback) ->
         if @executedLoops is @loops
