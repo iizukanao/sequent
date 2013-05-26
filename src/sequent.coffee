@@ -24,6 +24,7 @@ class Sequent
         @readyLoops = []
         @readyLoopArgs = []
         @isCallbackExecuted = false
+        @quiet = params?.quiet ? false
 
     rewind: ->
         @finished = 0
@@ -64,7 +65,8 @@ class Sequent
                     else
                         console.log "wait ready but callback has already been executed" if DEBUG
                 else if finished > waits
-                    console.log "[WARN] extra done() has been called: done=#{finished} > wait=#{waits}"
+                    if not @quiet
+                        console.log "[WARN] extra done() has been called: done=#{finished} > wait=#{waits}"
         else
             throw new Error "You have to specify the number of waits"
 
@@ -96,7 +98,8 @@ class Sequent
                 else
                     console.log "done but callback has already been executed" if DEBUG
             else if finished > waits
-                console.log "[WARN] extra done() has been called: done=#{finished} > wait=#{waits}"
+                if not @quiet
+                    console.log "[WARN] extra done() has been called: done=#{finished} > wait=#{waits}"
         else
             console.log "done but callback hasn't ready" if DEBUG
 
