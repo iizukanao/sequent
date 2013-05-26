@@ -1,6 +1,6 @@
 DEBUG = false
 
-doImmediately = process?.nextTick ? (callback) -> setTimeout callback, 0
+doImmediately = setImmediate ? (callback) -> setTimeout callback, 0
 idCounter = 1
 
 class Sequent
