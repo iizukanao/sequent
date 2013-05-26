@@ -24,6 +24,8 @@ class Sequent
         @readyLoops = []
         @readyLoopArgs = []
         @isCallbackExecuted = false
+
+        # if true, eliminate warnings for excessive done()
         @quiet = params?.quiet ? false
 
     rewind: ->
